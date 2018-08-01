@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <meta charset="utf-8">
+    <title>Paste sentence</title>
+    <style>
+      body {
+        margin: 0 auto;
+        font-family: "Meiryo UI", sans-serif;
+        font-size: 150%;
+        text-align: center;
+      }
+
+      textarea {
+        margin-top: 16px;
+        /* margin-bottom: 16px; */
+      }
+
+      #jp {
+        margin: 0 auto;
+        width: 95%;
+      }
+
+      #prev {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 200px;
+        text-align: left;
+        border-top: 1px solid black;
+        background-color: beige;
+        overflow-y: scroll;
+      }
+
+      #searchlinks {
+        padding-left: 0;
+        font-family: monospace;
+        text-align: center;
+        font-size: 60%;
+      }
+
+      #searchlinks a:link {
+        color: blue;
+      }
+
+      #searchlinks a:visited {
+        color: blue;
+      }
+
+      ol {
+        font-size: 60%;
+      }
+    </style>
+  </header>
+  <body>
+  <textarea rows="1" cols="50"></textarea>
+  <ul id="searchlinks">
+    <a href="#" onclick="searchEijiro()">英辞郎</a>
+    <a href="#" onclick="searchWeblio()">weblio</a>
+    <a href="#" onclick="searchJisho()">jisho</a>
+  </ul>
+  <p id="jp">ようこそ</p>
+  <div id="prev">
+    <ol id="words"></ol>
+  </div>
+  <script>
+    function setTextHere(e) {
+      clipboardData = e.clipboardData || window.clipboardData;
+      pastedData = clipboardData.getData('Text');
+      
+      document.getElementById('jp').innerHTML = pastedData;
+
+      var node = document.createElement("li");
+      var textNode = document.createTextNode(pastedData);
+      node.appendChild(textNode);
+      document.getElementById('words').appendChild(node);
+
+      var logBox = document.getElementById("prev");
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    document.getElementById('jp').addEventListener('paste', setTextHere);
+
+    function getSelectionText() {
+      var text = "";
+      
+      if (window.getSelection) {
+          text = window.getSelection().toString();
+      } else if (document.selection && document.selection.type != "Control") {
+          text = document.selection.createRange().text;
+      }
+
+      return text;
+    }
+
+    function searchEijiro() {
+      window.open("https://eow.alc.co.jp/search?q=" + getSelectionText(), "_blank");
+    }
+
+    function searchWeblio() {
+      window.open("https://ejje.weblio.jp/sentence/content/" + getSelectionText(), "_blank");
+    }
+
+    function searchJisho() {
+      window.open("https://jisho.org/search/" + getSelectionText(), "_blank");
+    }
+  </script>
+  </body>
+</html>
