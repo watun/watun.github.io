@@ -58,8 +58,10 @@
     <a href="#" onclick="searchEijiro()">英辞郎</a>
     <a href="#" onclick="searchWeblio()">weblio</a>
     <a href="#" onclick="searchJisho()">jisho</a>
+    <a id="view" href="#" onclick="toggleLogView()">非表示</a>
   </ul>
   <p id="jp">ようこそ</p>
+
   <div id="prev">
     <ol id="words"></ol>
   </div>
@@ -67,7 +69,7 @@
     function setTextHere(e) {
       clipboardData = e.clipboardData || window.clipboardData;
       pastedData = clipboardData.getData('Text');
-      
+
       document.getElementById('jp').innerHTML = pastedData;
 
       var node = document.createElement("li");
@@ -83,7 +85,7 @@
 
     function getSelectionText() {
       var text = "";
-      
+
       if (window.getSelection) {
           text = window.getSelection().toString();
       } else if (document.selection && document.selection.type != "Control") {
@@ -103,6 +105,21 @@
 
     function searchJisho() {
       window.open("https://jisho.org/search/" + getSelectionText(), "_blank");
+    }
+
+    function toggleLogView() {
+    	var log = document.getElementById("prev");
+    	var viewButton = document.getElementById("view");
+
+
+    	if (log.style.display === "none") {
+    		log.style.display = "block";
+    		viewButton.innerHTML = "非表示";
+
+    	} else {
+    		log.style.display = "none";
+    		viewButton.innerHTML = "表示";
+    	}
     }
   </script>
   </body>
