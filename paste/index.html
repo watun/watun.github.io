@@ -39,6 +39,10 @@
         font-size: 60%;
       }
 
+      #searchlinks a {
+        text-decoration: none;
+      }
+
       #searchlinks a:link {
         color: blue;
       }
@@ -53,10 +57,12 @@
     </style>
   </header>
   <body>
-  <textarea rows="1" cols="50"></textarea>
+  <textarea rows="2" cols="50"></textarea>
   <ul id="searchlinks">
+    <a href="#" onclick="searchWeblio()">webliojp</a>
+    <a href="#" onclick="searchKanjijiten()">漢字辞典</a>
     <a href="#" onclick="searchEijiro()">英辞郎</a>
-    <a href="#" onclick="searchWeblio()">weblio</a>
+    <a href="#" onclick="searchEjjeweblio()">ejjeweblio</a>
     <a href="#" onclick="searchJisho()">jisho</a>
     <a id="view" href="#" onclick="toggleLogView()">非表示</a>
   </ul>
@@ -70,15 +76,17 @@
       clipboardData = e.clipboardData || window.clipboardData;
       pastedData = clipboardData.getData('Text');
 
-      document.getElementById('jp').innerHTML = pastedData;
+      if (pastedData != "") {
+        document.getElementById('jp').innerHTML = pastedData;
 
-      var node = document.createElement("li");
-      var textNode = document.createTextNode(pastedData);
-      node.appendChild(textNode);
-      document.getElementById('words').appendChild(node);
+        var node = document.createElement("li");
+        var textNode = document.createTextNode(pastedData);
+        node.appendChild(textNode);
+        document.getElementById('words').appendChild(node);
 
-      var logBox = document.getElementById("prev");
-      logBox.scrollTop = logBox.scrollHeight;
+        var logBox = document.getElementById("prev");
+        logBox.scrollTop = logBox.scrollHeight;
+      }
     }
 
     document.getElementById('jp').addEventListener('paste', setTextHere);
@@ -87,9 +95,9 @@
       var text = "";
 
       if (window.getSelection) {
-          text = window.getSelection().toString();
+        text = window.getSelection().toString();
       } else if (document.selection && document.selection.type != "Control") {
-          text = document.selection.createRange().text;
+        text = document.selection.createRange().text;
       }
 
       return text;
@@ -100,11 +108,19 @@
     }
 
     function searchWeblio() {
+      window.open("https://www.weblio.jp/content/" + getSelectionText(), "_blank");
+    }
+
+    function searchEjjeweblio() {
       window.open("https://ejje.weblio.jp/sentence/content/" + getSelectionText(), "_blank");
     }
 
     function searchJisho() {
       window.open("https://jisho.org/search/" + getSelectionText(), "_blank");
+    }
+
+    function searchKanjijiten() {
+      window.open("https://kanji.jitenon.jp/cat/search.php?getdata=" + getSelectionText() + "&search=fpart&search2=twin", "_blank");
     }
 
     function toggleLogView() {
