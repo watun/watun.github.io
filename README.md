@@ -1,4 +1,4 @@
 # watun.github.io
-miscellaneous small utilities
+Miscellaneous small utilities to aid with learning Japanese
 
-* [Paste sentence](https://watun.github.io/paste) - small tool that allows you to paste text from your clipboard into a `<p>` element, made to be used with [Yomichan](https://foosoft.net/projects/yomichan/). also features a small textarea for typing, 3 dictionary buttons, and a log
+* [Paste sentence](https://watun.github.io/paste) - small tool that allows you to paste text from your clipboard into `<p>` elements, made to be used with [Yomichan](https://foosoft.net/projects/yomichan/) or [rikaikun](https://chrome.google.com/webstore/detail/rikaikun/jipdnfibhldikgcjhfnomkfpcebammhp?hl=ja). Also features a small textarea for typing, dictionary links, and a log for previously pasted text. Demonstration of how I personally use it for reading VNs - [YouTube](https://www.youtube.com/watch?v=ahZDiIZ0l4U)
