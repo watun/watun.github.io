@@ -13,12 +13,32 @@
 
       textarea {
         margin-top: 16px;
-        /* margin-bottom: 16px; */
       }
 
-      #jp {
+      #jp1 {
         margin: 0 auto;
         width: 95%;
+      }
+
+      #jp2 {
+        margin: 0 auto;
+        width: 95%;
+      }
+
+      #jp3 {
+        margin: 0 auto;
+        width: 95%;
+      }
+
+      .column {
+        float: left;
+        width: 33.33%;
+      }
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
       }
 
       #prev {
@@ -57,86 +77,95 @@
     </style>
   </header>
   <body>
-  <textarea rows="2" cols="50"></textarea>
-  <ul id="searchlinks">
-    <a href="#" onclick="searchWeblio()">webliojp</a>
-    <a href="#" onclick="searchKanjijiten()">漢字辞典</a>
-    <a href="#" onclick="searchEijiro()">英辞郎</a>
-    <a href="#" onclick="searchEjjeweblio()">ejjeweblio</a>
-    <a href="#" onclick="searchJisho()">jisho</a>
-    <a id="view" href="#" onclick="toggleLogView()">非表示</a>
-  </ul>
-  <p id="jp">ようこそ</p>
+    <textarea rows="2" cols="50"></textarea>
 
-  <div id="prev">
-    <ol id="words"></ol>
-  </div>
-  <script>
-    function setTextHere(e) {
-      clipboardData = e.clipboardData || window.clipboardData;
-      pastedData = clipboardData.getData('Text');
+    <ul id="searchlinks">
+      <a href="#" onclick="searchWeblio()">webliojp</a>
+      <a href="#" onclick="searchKanjijiten()">漢字辞典</a>
+      <a href="#" onclick="searchEijiro()">英辞郎</a>
+      <a href="#" onclick="searchEjjeweblio()">ejjeweblio</a>
+      <a href="#" onclick="searchJisho()">jisho</a>
+      <a id="view" href="#" onclick="toggleLogView()">非表示</a>
+    </ul>
 
-      if (pastedData != "") {
-        document.getElementById('jp').innerHTML = pastedData;
+    <div class="row">
+      <div class="column"><p id="jp1">ようこそ</p></div>
+      <div class="column"><p id="jp2">ようこそ</p></div>
+      <div class="column"><p id="jp3">ようこそ</p></div>
+    </div>
 
-        var node = document.createElement("li");
-        var textNode = document.createTextNode(pastedData);
-        node.appendChild(textNode);
-        document.getElementById('words').appendChild(node);
+    <div id="prev">
+      <ol id="words"></ol>
+    </div>
 
-        var logBox = document.getElementById("prev");
-        logBox.scrollTop = logBox.scrollHeight;
-      }
-    }
+    <script>
+      function setTextHere(e) {
+        clipboardData = e.clipboardData || window.clipboardData;
+        pastedData = clipboardData.getData('Text');
 
-    document.getElementById('jp').addEventListener('paste', setTextHere);
+        if (pastedData != "") {
+          this.innerHTML = pastedData;
 
-    function getSelectionText() {
-      var text = "";
+          var node = document.createElement("li");
+          var textNode = document.createTextNode(pastedData);
+          node.appendChild(textNode);
+          document.getElementById('words').appendChild(node);
 
-      if (window.getSelection) {
-        text = window.getSelection().toString();
-      } else if (document.selection && document.selection.type != "Control") {
-        text = document.selection.createRange().text;
+          var logBox = document.getElementById("prev");
+          logBox.scrollTop = logBox.scrollHeight;
+        }
       }
 
-      return text;
-    }
+      document.getElementById('jp1').addEventListener('paste', setTextHere);
+      document.getElementById('jp2').addEventListener('paste', setTextHere);
+      document.getElementById('jp3').addEventListener('paste', setTextHere);
 
-    function searchEijiro() {
-      window.open("https://eow.alc.co.jp/search?q=" + getSelectionText(), "_blank");
-    }
+      function getSelectionText() {
+        var text = "";
 
-    function searchWeblio() {
-      window.open("https://www.weblio.jp/content/" + getSelectionText(), "_blank");
-    }
+        if (window.getSelection) {
+          text = window.getSelection().toString();
+        } else if (document.selection && document.selection.type != "Control") {
+          text = document.selection.createRange().text;
+        }
 
-    function searchEjjeweblio() {
-      window.open("https://ejje.weblio.jp/sentence/content/" + getSelectionText(), "_blank");
-    }
+        return text;
+      }
 
-    function searchJisho() {
-      window.open("https://jisho.org/search/" + getSelectionText(), "_blank");
-    }
+      function searchEijiro() {
+        window.open("https://eow.alc.co.jp/search?q=" + getSelectionText(), "_blank");
+      }
 
-    function searchKanjijiten() {
-      window.open("https://kanji.jitenon.jp/cat/search.php?getdata=" + getSelectionText() + "&search=fpart&search2=twin", "_blank");
-    }
+      function searchWeblio() {
+        window.open("https://www.weblio.jp/content/" + getSelectionText(), "_blank");
+      }
 
-    function toggleLogView() {
-    	var log = document.getElementById("prev");
-    	var viewButton = document.getElementById("view");
+      function searchEjjeweblio() {
+        window.open("https://ejje.weblio.jp/sentence/content/" + getSelectionText(), "_blank");
+      }
+
+      function searchJisho() {
+        window.open("https://jisho.org/search/" + getSelectionText(), "_blank");
+      }
+
+      function searchKanjijiten() {
+        window.open("https://kanji.jitenon.jp/cat/search.php?getdata=" + getSelectionText() + "&search=fpart&search2=twin", "_blank");
+      }
+
+      function toggleLogView() {
+        var log = document.getElementById("prev");
+        var viewButton = document.getElementById("view");
 
 
-    	if (log.style.display === "none") {
-    		log.style.display = "block";
-    		viewButton.innerHTML = "非表示";
+        if (log.style.display === "none") {
+          log.style.display = "block";
+          viewButton.innerHTML = "非表示";
 
-    	} else {
-    		log.style.display = "none";
-    		viewButton.innerHTML = "表示";
-    	}
-    }
-  </script>
+        } else {
+          log.style.display = "none";
+          viewButton.innerHTML = "表示";
+        }
+      }
+    </script>
   </body>
 </html>
