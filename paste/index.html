@@ -64,11 +64,11 @@
       }
 
       #searchlinks a:link {
-        color: blue;
+        color: lightblue;
       }
 
       #searchlinks a:visited {
-        color: blue;
+        color: lightblue;
       }
 
       ol {
@@ -77,7 +77,7 @@
     </style>
   </header>
   <body>
-    <textarea rows="2" cols="50"></textarea>
+    <textarea rows="2" cols="50" id="edit"></textarea>
 
     <ul id="searchlinks">
       <a href="#" onclick="searchWeblio()">webliojp</a>
@@ -86,6 +86,7 @@
       <a href="#" onclick="searchEjjeweblio()">ejjeweblio</a>
       <a href="#" onclick="searchJisho()">jisho</a>
       <a id="view" href="#" onclick="toggleLogView()">非表示</a>
+      <a id="theme" href="#" onclick="toggleDarkMode()">ダーク</a>
     </ul>
 
     <div class="row">
@@ -164,6 +165,50 @@
         } else {
           log.style.display = "none";
           viewButton.innerHTML = "表示";
+        }
+      }
+
+      var dark = false;
+
+      function toggleDarkMode() {
+        dark = !dark;
+
+        var themeButton = document.getElementById("theme");
+
+        if (dark) {
+          document.body.style.backgroundColor = "black";
+
+          document.getElementById("jp1").style.color = "white";
+          document.getElementById("jp2").style.color = "white";
+          document.getElementById("jp3").style.color = "white";
+
+          var edit = document.getElementById("edit");
+          edit.style.backgroundColor = "black";
+          edit.style.color = "white";
+
+          var log = document.getElementById("prev");
+          log.style.backgroundColor = "rgb(16, 16, 16)";
+          log.style.color = "white";
+          log.style.borderTopColor = "white";
+
+          themeButton.innerHTML = "ライト";
+        } else {
+          document.body.style.backgroundColor = "white";
+
+          document.getElementById("jp1").style.color = "black";
+          document.getElementById("jp2").style.color = "black";
+          document.getElementById("jp3").style.color = "black";
+
+          var edit = document.getElementById("edit");
+          edit.style.backgroundColor = "white";
+          edit.style.color = "black";
+
+          var log = document.getElementById("prev");
+          log.style.backgroundColor = "beige";
+          log.style.color = "black";
+          log.style.borderTopColor = "black";
+
+          themeButton.innerHTML = "ダーク";
         }
       }
     </script>
